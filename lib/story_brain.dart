@@ -1,92 +1,141 @@
 import 'story.dart';
 
 class StoryBrain {
-  List<Story> _storyData = [
-    Story(
+  final Map<String, Story> _storyMap = {
+    "start": Story(
+        storyTitle:
+        "Welcome adventurer. Your adventure begins, as many do, in Ye Olde Inn.",
+        choice1: "Continue",
+        target1: "inn",
+        choice2: "",
+        target2: ""),
+    "inn": Story(
+        storyTitle:
+        "This is a peaceful, happy inn with plentiful drink, tasty food, and friendly staff.",
+        choice1: "Stay",
+        target1: "inn",
+        choice2: "Go!",
+        target2: "cave entrance"),
+    "cave entrance": Story(
+        storyTitle: "There is a dark cave in the hillside before you.",
+        choice1: "Enter",
+        target1: "entry",
+        choice2: "Run",
+        target2: "inn"),
+    "entry": Story(
+        storyTitle: "You are in a dark, narrow tunnel.",
+        choice1: "Next",
+        target1: "side opening",
+        choice2: "",
+        target2: ""),
+    "side opening": Story(
+        storyTitle:
+        "You are in a small room, one tunnel leads ahead and another to the side. Do you continue on or explore the side tunnel?",
+        choice1: "Continue",
+        target1: "skeleton room",
+        choice2: "Side T.",
+        target2: "treasure room"),
+    "treasure room": Story(
+        storyTitle: "There is a pile of treasure here. Congratulations!",
+        choice1: "Next",
+        target1: "maze 1",
+        choice2: "",
+        target2: ""),
+    "skeleton room": Story(
+        storyTitle:
+        "There is a skeleton on the floor. From the items around it, it seems to be that of an unfortunate adventurer.",
+        choice1: "Next",
+        target1: "maze 2",
+        choice2: "",
+        target2: ""),
+    "maze 1": Story(
+        storyTitle: "There are passages to the left and right.",
+        choice1: "Left",
+        target1: "maze 3",
+        choice2: "Right",
+        target2: "maze 2"),
+    "maze 2": Story(
+        storyTitle: "There are passages to the left and right.",
+        choice1: "Left",
+        target1: "maze 1",
+        choice2: "Right",
+        target2: "maze 4"),
+    "maze 3": Story(
+        storyTitle: "There are passages to the left and right.",
+        choice1: "Left",
+        target1: "maze 5",
+        choice2: "Right",
+        target2: "maze 2"),
+    "maze 4": Story(
+        storyTitle: "There are passages to the left and right.",
+        choice1: "Left",
+        target1: "maze 1",
+        choice2: "Right",
+        target2: "maze 6"),
+    "maze 5": Story(
+        storyTitle: "There are passages to the left and right.",
+        choice1: "Left",
+        target1: "maze 4",
+        choice2: "Right",
+        target2: "creaking"),
+    "maze 6": Story(
+        storyTitle: "There are passages to the left and right.",
+        choice1: "Left",
+        target1: "creaking",
+        choice2: "Right",
+        target2: "maze 3"),
+    "creaking": Story(
+        storyTitle: "You hear an ominous creaking from around the corner",
+        choice1: "Cont.",
+        target1: "bridge room 1",
+        choice2: "Go back",
+        target2: "inn"),
+    "bridge room 1": Story(
+        storyTitle:
+        "There is a creaking, rickety wooded bridge leading across a gaping chasm.",
+        choice1: "Cont.",
+        target1: "bridge room 2",
+        choice2: "",
+        target2: ""),
+    "bridge room 2": Story(
       storyTitle:
-          'Your car has blown a tire on a winding road in the middle of nowhere with no cell phone reception. You decide to hitchhike. A rusty pickup truck rumbles to a stop next to you. A man with a wide brimmed hat with soulless eyes opens the passenger door for you and asks: "Need a ride, boy?".',
-      choice1: 'I\'ll hop in. Thanks for the help!',
-      choice2: 'Better ask him if he\'s a murderer first.',
-      target1: 2,
-      target2: 1,
+      "At the other end is a large treasure chest. There is also a short tunnel with daylight at the end.",
+      choice1: "Treasure!",
+      target1: "die",
+      choice2: "Leave",
+      target2: "inn",
     ),
-    Story(
-      storyTitle: 'He nods slowly, unphased by the question.',
-      choice1: 'At least he\'s honest. I\'ll climb in.',
-      choice2: 'Wait, I know how to change a tire.',
-      target1: 2,
-      target2: 3,
-    ),
-    Story(
-      storyTitle:
-          'As you begin to drive, the stranger starts talking about his relationship with his mother. He gets angrier and angrier by the minute. He asks you to open the glovebox. Inside you find a bloody knife, two severed fingers, and a cassette tape of Elton John. He reaches for the glove box.',
-      choice1: 'I love Elton John! Hand him the cassette tape.',
-      choice2: 'It\'s him or me! You take the knife and stab him.',
-      target1: 5,
-      target2: 4,
-    ),
-    Story(
-      storyTitle:
-          'What? Such a cop out! Did you know traffic accidents are the second leading cause of accidental death for most adult age groups?',
-      choice1: 'Restart',
-      choice2: '',
-      target1: -1,
-      target2: -1,
-    ),
-    Story(
-      storyTitle:
-          'As you smash through the guardrail and careen towards the jagged rocks below you reflect on the dubious wisdom of stabbing someone while they are driving a car you are in.',
-      choice1: 'Restart',
-      choice2: '',
-      target1: -1,
-      target2: -1,
-    ),
-    Story(
-      storyTitle:
-          'You bond with the murderer while crooning verses of "Can you feel the love tonight". He drops you off at the next town. Before you go he asks you if you know any good places to dump bodies. You reply: "Try the pier".',
-      choice1: 'Restart',
-      choice2: '',
-      target1: -1,
-      target2: -1,
-    )
-  ];
+    "die": Story(
+        storyTitle: "The bridge gives way and you fall to a painful death.",
+        choice1: "Next",
+        target1: "inn",
+        choice2: "",
+        target2: "")
+  };
 
-  int _storyNumber = 0;
+  String _currentKey = 'start';
 
-  String getStory() => _storyData[_storyNumber].storyTitle;
+  String getStory() => _storyMap[_currentKey].storyTitle;
 
-  String getChoice1() => _storyData[_storyNumber].choice1;
+  String getChoice1() => _storyMap[_currentKey].choice1;
 
-  String getChoice2() => _storyData[_storyNumber].choice2;
+  String getChoice2() => _storyMap[_currentKey].choice2;
 
-  void restart() => _storyNumber = 0;
+  void restart() => _currentKey = 'start';
 
   void nextStory(int choiceNumber) {
-    if (_storyData[_storyNumber].target1 == -1 && _storyData[_storyNumber].target2 == -1) {
+    print(_storyMap[_currentKey].storyTitle);
+    if (_storyMap[_currentKey].target1 == '' &&
+        _storyMap[_currentKey].target2 == '') {
       restart();
+    } else {
+      _currentKey = (choiceNumber == 1)
+          ? _storyMap[_currentKey].target1
+          : _storyMap[_currentKey].target2;
     }
-    else {
-      _storyNumber = (choiceNumber == 1) ? _storyData[_storyNumber].target1 : _storyData[_storyNumber].target2;
-    }
-    // if (_storyNumber == 0 && choiceNumber == 1)
-    //   _storyNumber = 2;
-    // else if (_storyNumber == 0 && choiceNumber == 2)
-    //   _storyNumber = 1;
-    // else if (_storyNumber == 1 && choiceNumber == 1)
-    //   _storyNumber = 2;
-    // else if (_storyNumber == 1 && choiceNumber == 2)
-    //   _storyNumber = 3;
-    // else if (_storyNumber == 2 && choiceNumber == 1)
-    //   _storyNumber = 5;
-    // else if (_storyNumber == 2 && choiceNumber == 2)
-    //   _storyNumber = 4;
-    // else {
-    //   // finished
-    //   restart();
-    // }
   }
 
   bool buttonShouldBeVisible() {
-    return _storyNumber == 0 || _storyNumber == 1 || _storyNumber == 2;
+    return _storyMap[_currentKey].target2 != '';
   }
 }
